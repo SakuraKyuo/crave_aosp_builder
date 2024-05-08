@@ -193,6 +193,10 @@ jobs:
         timeout 1m repo sync --force-sync || { exit_code=$?; [ $exit_code -eq 124 ] || (echo "Error: Process failed with exit code $exit_code"; exit $exit_code); }
         du -csh . # Output Size when done
         rm -rf .repo
+        if [ "${{ github.event.inputs.DEVICE_NAME }}" == "udon" ]; then
+          rm -rf external/wpa_supplicant_8
+          git clone https://github.com/SakuraKyuo/android_external_wpa_supplicant_8 external/wpa_supplicant_8
+        fi
       timeout-minutes: 10
     outputs:
       PROJECTFOLDER: ${{ needs.prepare.outputs.PROJECTFOLDER }}
