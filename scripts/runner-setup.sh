@@ -8,20 +8,8 @@ rm -rf actions-runner || true
 
   echo "Installing Runner!" #Create folder and download zip
   echo "Downloading Zip"
-  version=$(curl -s "https://api.github.com/repos/actions/runner/releases/latest" | grep -oP '"tag_name": "\K[^"]*' | sed 's/^v//')
-  url=$(curl -s "https://api.github.com/repos/actions/runner/releases/latest" | grep -oP '"browser_download_url": "\K[^"]*' | grep 'linux-x64.tar.gz')
-  
-  if [[ -z "${version}" ]]; then
-    echo "Failed to retrieve the version number"
-    exit 1
-  fi # Fetch version
-  
-  url=https://github.com/actions/runner/releases/download/v${version}/actions-runner-linux-x64-${version}.tar.gz # Fetch URL
-  url=$(echo "$url" | xargs) # Remove leading/trailing whitespace
-  if ! wget -O actions-runner-linux-x64.tar.gz "${url}"; then
-    echo "Failed to download the runner package"
-  exit 1
-  fi
+
+  wget -O actions-runner-linux-x64.tar.gz "https://github.com/actions/runner/releases/download/v2.316.1/actions-runner-linux-x64-2.316.1.tar.gz"
   
   echo "Extracting Zip"
     mkdir -p actions-runner
