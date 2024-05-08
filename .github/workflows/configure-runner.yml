@@ -49,10 +49,5 @@ jobs:
       run: |
         crave devspace -- "rm -rf actions-runner || true
         curl https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/scripts/runner-setup.sh | bash
-        if [[ "${{ inputs.RUNNER_TOKEN }}" == "github_pat_*" ]]; then
-          echo "PAT does not work!"
-        else
-            echo "Runner token found"
-        fi
         cd actions-runner
-         ./config.sh --unattended --url "https://github.com/${{ github.repository }}" --token "${{ inputs.RUNNER_TOKEN }}"
+         ./config.sh --unattended --url "https://github.com/${{ github.repository }}" --token "${{ inputs.RUNNER_TOKEN }}""
